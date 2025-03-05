@@ -22,6 +22,19 @@ changelog:
       - "^docs:"
       - "^test:"
 builds:
+  - id: 'slurm-22.05'
+    main: ./cmd/prometheus-slurm-exporter/main.go
+    binary: prometheus-slurm-exporter_slurm-22.05_{{ .Os }}_{{ .Arch }}
+    flags:
+      - -tags=2311
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+
   - id: 'slurm-23.11'
     main: ./cmd/prometheus-slurm-exporter/main.go
     binary: prometheus-slurm-exporter_slurm-23.11_{{ .Os }}_{{ .Arch }}
