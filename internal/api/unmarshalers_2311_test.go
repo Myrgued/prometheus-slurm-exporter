@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/lcrownover/prometheus-slurm-exporter/internal/util"
+	"github.com/Myrgued/prometheus-slurm-exporter/internal/util"
 )
 
 func TestUnmarshalDiagResponse(t *testing.T) {

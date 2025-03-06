@@ -5,8 +5,8 @@ package slurm
 import (
 	"testing"
 
-	"github.com/lcrownover/prometheus-slurm-exporter/internal/api"
-	"github.com/lcrownover/prometheus-slurm-exporter/internal/util"
+	"github.com/Myrgued/prometheus-slurm-exporter/internal/api"
+	"github.com/Myrgued/prometheus-slurm-exporter/internal/util"
 )
 
 func TestParseQueueMetrics(t *testing.T) {

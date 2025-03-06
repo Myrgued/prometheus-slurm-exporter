@@ -9,7 +9,7 @@ func CleanseInfinity(b []byte) []byte {
 	// this will be fixed in v0.0.42
 	// https://support.schedmd.com/show_bug.cgi?id=20817
 	//
-	// https://github.com/lcrownover/prometheus-slurm-exporter/issues/8
+	// https://github.com/Myrgued/prometheus-slurm-exporter/issues/8
 	// also reported that folks are getting "inf" back, so I'll protect for that too
 	bs := string(b)
 	maxFloatStr := ": 1.7976931348623157e+308"

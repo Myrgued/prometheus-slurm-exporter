@@ -25,7 +25,7 @@ distribution._
 Use Git to clone the source code:
 
 ```bash
-git clone https://github.com/lcrownover/prometheus-slurm-exporter.git
+git clone https://github.com/Myrgued/prometheus-slurm-exporter.git
 cd prometheus-slurm-exporter
 ```
 
@@ -123,7 +123,7 @@ openapi-generator-cli generate \
     -i openapi-specs/23.11.json \
     -o ../openapi-slurm-23-11 \
     --package-name openapi_slurm_23_11 \
-    --git-user-id lcrownover \
+    --git-user-id Myrgued \
     --git-repo-id openapi-slurm-23-11
 ```
 

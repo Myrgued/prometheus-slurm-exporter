@@ -12,7 +12,7 @@ I will be releasing containerized versions of this exporter soon.
 ## Installation
 
 This repository contains precompiled binaries for the three most recent major versions of SLURM _(Note: currently only two versions, but will be three when 24.11 releases)_.
-In the [releases](https://github.com/lcrownover/prometheus-slurm-exporter/releases) page, download the newest version of the exporter that matches your SLURM version.
+In the [releases](https://github.com/Myrgued/prometheus-slurm-exporter/releases) page, download the newest version of the exporter that matches your SLURM version.
 The included systemd file assumes you've saved this binary to `/usr/local/sbin/prometheus-slurm-exporter`, so drop it there or take note to change the systemd file if you choose to use it.
 
 ## Configuration
@@ -63,7 +63,7 @@ The expoter requires several environment variables to be set:
 
 ## Systemd
 
-A systemd unit file is [included](https://github.com/lcrownover/prometheus-slurm-exporter/blob/develop/extras/systemd/prometheus-slurm-exporter.service) for ease of deployment.
+A systemd unit file is [included](https://github.com/Myrgued/prometheus-slurm-exporter/blob/develop/extras/systemd/prometheus-slurm-exporter.service) for ease of deployment.
 
 This unit file assumes you've written your environment variables to `/etc/prometheus-slurm-exporter/env.conf` in the format:
 
