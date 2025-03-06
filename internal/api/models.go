@@ -334,74 +334,53 @@ func (n *NodeData) SetNodeGPUAllocated(tresString *string) error {
 	return nil
 }
 
-func (n *NodeData) SetNodeStates(states []string) error {
-	var nodeStates []types.NodeState
-	if states == nil {
-		// node state is not found in the node response
-		return fmt.Errorf("node state not found in node")
-	}
+// Modified for Slurm 22.05
+func (n *NodeData) SetNodeStates(states *string) error {
+    if states == nil {
+        // No state found in the node response
+        return fmt.Errorf("node state not found in node")
+    }
 
-	for _, s := range states {
-		state := string(s)
-		state = strings.ToLower(state)
+    strStates := strings.Split(*states, ",")
+    var nodeStates []types.NodeState
 
-		alloc := regexp.MustCompile(`^alloc`)
-		comp := regexp.MustCompile(`^comp`)
-		down := regexp.MustCompile(`^down`)
-		drain := regexp.MustCompile(`^drain`)
-		fail := regexp.MustCompile(`^fail`)
-		err := regexp.MustCompile(`^err`)
-		idle := regexp.MustCompile(`^idle`)
-		maint := regexp.MustCompile(`^maint`)
-		mix := regexp.MustCompile(`^mix`)
-		planned := regexp.MustCompile(`^planned`)
-		resv := regexp.MustCompile(`^res`)
-		notresp := regexp.MustCompile(`^not_responding`)
-		invalid := regexp.MustCompile(`^invalid`)
-		invalidreg := regexp.MustCompile(`^invalid_reg`)
-		dynnorm := regexp.MustCompile(`^dynamic_norm`)
+    patterns := map[*regexp.Regexp]types.NodeState{
+        regexp.MustCompile(`^alloc`):          types.NodeStateAlloc,
+        regexp.MustCompile(`^comp`):           types.NodeStateComp,
+        regexp.MustCompile(`^down`):           types.NodeStateDown,
+        regexp.MustCompile(`^drain`):          types.NodeStateDrain,
+        regexp.MustCompile(`^fail`):           types.NodeStateFail,
+        regexp.MustCompile(`^err`):            types.NodeStateErr,
+        regexp.MustCompile(`^idle`):           types.NodeStateIdle,
+        regexp.MustCompile(`^maint`):          types.NodeStateMaint,
+        regexp.MustCompile(`^mix`):            types.NodeStateMix,
+        regexp.MustCompile(`^planned`):        types.NodeStatePlanned,
+        regexp.MustCompile(`^res`):            types.NodeStateResv,
+        regexp.MustCompile(`^not_responding`): types.NodeStateNotResponding,
+        regexp.MustCompile(`^invalid`):        types.NodeStateInvalid,
+        regexp.MustCompile(`^invalid_reg`):    types.NodeStateInvalidReg,
+        regexp.MustCompile(`^dynamic_norm`):   types.NodeStateDynamicNorm,
+    }
 
-		var stateUnit types.NodeState
+    for _, s := range strStates {
+        state := strings.ToLower(strings.TrimSpace(s))
+        matched := false
 
-		switch {
-		case alloc.MatchString(state):
-			stateUnit = types.NodeStateAlloc
-		case comp.MatchString(state):
-			stateUnit = types.NodeStateComp
-		case down.MatchString(state):
-			stateUnit = types.NodeStateDown
-		case drain.MatchString(state):
-			stateUnit = types.NodeStateDrain
-		case fail.MatchString(state):
-			stateUnit = types.NodeStateFail
-		case err.MatchString(state):
-			stateUnit = types.NodeStateErr
-		case idle.MatchString(state):
-			stateUnit = types.NodeStateIdle
-		case maint.MatchString(state):
-			stateUnit = types.NodeStateMaint
-		case mix.MatchString(state):
-			stateUnit = types.NodeStateMix
-		case planned.MatchString(state):
-			stateUnit = types.NodeStatePlanned
-		case resv.MatchString(state):
-			stateUnit = types.NodeStateResv
-		case notresp.MatchString(state):
-			stateUnit = types.NodeStateNotResponding
-		case invalid.MatchString(state):
-			stateUnit = types.NodeStateInvalid
-		case invalidreg.MatchString(state):
-			stateUnit = types.NodeStateInvalidReg
-		case dynnorm.MatchString(state):
-			stateUnit = types.NodeStateDynamicNorm
-		default:
-			return fmt.Errorf("failed to match cpu state against known states: %v", state)
-		}
+        for re, stateUnit := range patterns {
+            if re.MatchString(state) {
+                nodeStates = append(nodeStates, stateUnit)
+                matched = true
+                break
+            }
+        }
 
-		nodeStates = append(nodeStates, stateUnit)
-	}
-	n.States = nodeStates
-	return nil
+        if !matched {
+            return fmt.Errorf("failed to match cpu state against known states: %v", state)
+        }
+    }
+
+    n.States = nodeStates
+    return nil
 }
 
 func (n *NodeData) GetNodeStatesString(delim string) (string, error) {
@@ -515,60 +494,40 @@ func (j *JobData) SetJobDependency(dependency *string) error {
 	return nil
 }
 
-func (j *JobData) SetJobState(states []string) error {
-	if states == nil {
-		// job state is not found in the job response
-		return fmt.Errorf("job state not found in job")
-	}
-	state := string((states)[0])
-	state = strings.ToLower(state)
 
-	completed := regexp.MustCompile(`^completed`)
-	pending := regexp.MustCompile(`^pending`)
-	failed := regexp.MustCompile(`^failed`)
-	running := regexp.MustCompile(`^running`)
-	suspended := regexp.MustCompile(`^suspended`)
-	out_of_memory := regexp.MustCompile(`^out_of_memory`)
-	timeout := regexp.MustCompile(`^timeout`)
-	cancelled := regexp.MustCompile(`^cancelled`)
-	completing := regexp.MustCompile(`^completing`)
-	configuring := regexp.MustCompile(`^configuring`)
-	node_fail := regexp.MustCompile(`^node_fail`)
-	preempted := regexp.MustCompile(`^preempted`)
+// Modified for Slurm 22.05
+func (j *JobData) SetJobState(states *string) error {
+    if states == nil {
+        return fmt.Errorf("job state not found in job")
+    }
 
-	var stateUnit types.JobState
+    state := strings.ToLower(strings.TrimSpace(*states))
 
-	switch {
-	case completed.MatchString(state):
-		stateUnit = types.JobStateCompleted
-	case pending.MatchString(state):
-		stateUnit = types.JobStatePending
-	case failed.MatchString(state):
-		stateUnit = types.JobStateFailed
-	case running.MatchString(state):
-		stateUnit = types.JobStateRunning
-	case suspended.MatchString(state):
-		stateUnit = types.JobStateSuspended
-	case out_of_memory.MatchString(state):
-		stateUnit = types.JobStateOutOfMemory
-	case timeout.MatchString(state):
-		stateUnit = types.JobStateTimeout
-	case cancelled.MatchString(state):
-		stateUnit = types.JobStateCancelled
-	case completing.MatchString(state):
-		stateUnit = types.JobStateCompleting
-	case configuring.MatchString(state):
-		stateUnit = types.JobStateConfiguring
-	case node_fail.MatchString(state):
-		stateUnit = types.JobStateNodeFail
-	case preempted.MatchString(state):
-		stateUnit = types.JobStatePreempted
-	default:
-		return fmt.Errorf("failed to match job state against known states: %v", state)
-	}
-	j.JobState = stateUnit
-	return nil
+    patterns := map[*regexp.Regexp]types.JobState{
+        regexp.MustCompile(`^completed`):      types.JobStateCompleted,
+        regexp.MustCompile(`^pending`):        types.JobStatePending,
+        regexp.MustCompile(`^failed`):         types.JobStateFailed,
+        regexp.MustCompile(`^running`):        types.JobStateRunning,
+        regexp.MustCompile(`^suspended`):      types.JobStateSuspended,
+        regexp.MustCompile(`^out_of_memory`):  types.JobStateOutOfMemory,
+        regexp.MustCompile(`^timeout`):        types.JobStateTimeout,
+        regexp.MustCompile(`^cancelled`):      types.JobStateCancelled,
+        regexp.MustCompile(`^completing`):     types.JobStateCompleting,
+        regexp.MustCompile(`^configuring`):    types.JobStateConfiguring,
+        regexp.MustCompile(`^node_fail`):      types.JobStateNodeFail,
+        regexp.MustCompile(`^preempted`):      types.JobStatePreempted,
+    }
+
+    for re, stateUnit := range patterns {
+        if re.MatchString(state) {
+            j.JobState = stateUnit
+            return nil
+        }
+    }
+
+    return fmt.Errorf("failed to match job state against known states: %v", state)
 }
+
 
 func (j *JobData) SetJobCPUs(jobcpus *int32) error {
 	if jobcpus == nil {
@@ -662,13 +621,13 @@ func (d *PartitionsData) FromResponse(r PartitionsResp) error {
 		if err = pd.SetName(p.Name); err != nil {
 			return err
 		}
-		if err = pd.SetTotalCPUs(p.Cpus.Total); err != nil {
+		if err = pd.SetTotalCPUs(p.Cpus); err != nil {
 			return err
 		}
 		if err = pd.SetOtherCPUs(); err != nil {
 			return err
 		}
-		if err = pd.SetNodeList(p.Nodes.Configured); err != nil {
+		if err = pd.SetNodeList(p.Nodes); err != nil {
 			return err
 		}
 		d.Partitions = append(d.Partitions, pd)
