@@ -53,7 +53,7 @@ type NodesResp struct {
 type PartitionsResp struct {
 	Partitions []struct {
 		Name *string `json:"name,omitempty"`
-		Cpus *string `json:"total_cpus,omitempty"`
+		Cpus *int32 `json:"total_cpus,omitempty"`
 		Nodes *string `json:"nodes,omitempty"`
 	} `json:"partitions"`
 }
