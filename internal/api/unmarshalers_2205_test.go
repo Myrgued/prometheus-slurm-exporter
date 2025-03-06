@@ -44,3 +44,13 @@ func TestUnmarshalPartitionsResponse(t *testing.T) {
 		t.Fatalf("failed to unmarshal partition response: %v\n", err)
 	}
 }
+
+func TestUnmarshalSharesResponse(t *testing.T) {
+	var r SharesResp
+	fb := util.ReadTestDataBytes("V0040OpenapiSharesResp.json")
+	fb = util.CleanseInfinity(fb)
+	err := json.Unmarshal(fb, &r)
+	if err != nil {
+		t.Fatalf("failed to unmarshal shares response: %v\n", err)
+	}
+}

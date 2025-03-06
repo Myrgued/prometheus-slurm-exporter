@@ -7,8 +7,9 @@ import (
 )
 
 var versionedEndpoints = []endpoint{
-	{types.ApiJobsEndpointKey, "jobs", "/slurm/v0.0.36/jobs"},
-	{types.ApiNodesEndpointKey, "nodes", "/slurm/v0.0.36/nodes"},
-	{types.ApiPartitionsEndpointKey, "partitions", "/slurm/v0.0.36/partitions"},
-	{types.ApiDiagEndpointKey, "diag", "/slurm/v0.0.36/diag"},
+	{types.ApiJobsEndpointKey, "jobs", "/slurm/v0.0.38/jobs"},
+	{types.ApiNodesEndpointKey, "nodes", "/slurm/v0.0.38/nodes"},
+	{types.ApiPartitionsEndpointKey, "partitions", "/slurm/v0.0.38/partitions"},
+	{types.ApiDiagEndpointKey, "diag", "/slurm/v0.0.38/diag"},
+	{types.ApiSharesEndpointKey, "shares", "/slurm/v0.0.40/shares"},
 }
