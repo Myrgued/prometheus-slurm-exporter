@@ -26,7 +26,7 @@ type JobsResp struct {
 		Account      *string  `json:"account"`
 		UserName     *string  `json:"user_name"`
 		Partition    *string  `json:"partition"`
-		JobState     []string `json:"job_state"`
+		JobState     *string `json:"job_state"`
 		Dependency   *string  `json:"dependency"`
 		JobResources struct {
 			Cpus *int32 `json:"allocated_cores"`
@@ -38,7 +38,7 @@ type NodesResp struct {
 	Nodes []struct {
 		Name          *string  `json:"name,omitempty"`
 		Hostname      *string  `json:"hostname,omitempty"`
-		State         []string `json:"state,omitempty"`
+		State         *string `json:"state,omitempty"`
 		Tres          *string  `json:"tres,omitempty"`
 		TresUsed      *string  `json:"tres_used,omitempty"`
 		Partitions    []string `json:"partitions,omitempty"`
@@ -53,12 +53,8 @@ type NodesResp struct {
 type PartitionsResp struct {
 	Partitions []struct {
 		Name *string `json:"name,omitempty"`
-		Cpus *struct {
-			Total *int32 `json:"total"`
-		} `json:"cpus"`
-		Nodes *struct {
-			Configured *string `json:"configured"`
-		} `json:"nodes"`
+		Cpus *string `json:"total_cpus,omitempty"`
+		Nodes *string `json:"nodes,omitempty"`
 	} `json:"partitions"`
 }
 

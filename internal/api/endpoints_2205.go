@@ -11,5 +11,5 @@ var versionedEndpoints = []endpoint{
 	{types.ApiNodesEndpointKey, "nodes", "/slurm/v0.0.38/nodes"},
 	{types.ApiPartitionsEndpointKey, "partitions", "/slurm/v0.0.38/partitions"},
 	{types.ApiDiagEndpointKey, "diag", "/slurm/v0.0.38/diag"},
-	{types.ApiSharesEndpointKey, "shares", "/slurm/v0.0.40/shares"},
+	{types.ApiSharesEndpointKey, "shares", "/slurm/v0.0.38/shares"},
 }
