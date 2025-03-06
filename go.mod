@@ -1,4 +1,4 @@
-module github.com/lcrownover/prometheus-slurm-exporter
+module github.com/Myrgued/prometheus-slurm-exporter
 
 go 1.22.5
 
