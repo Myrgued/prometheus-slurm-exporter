@@ -3,7 +3,7 @@ package api
 import (
 	"context"
 
-	"github.com/lcrownover/prometheus-slurm-exporter/internal/types"
+	"github.com/Myrgued/prometheus-slurm-exporter/internal/types"
 )
 
 type endpoint struct {

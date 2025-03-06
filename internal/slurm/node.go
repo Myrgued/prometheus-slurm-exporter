@@ -6,8 +6,8 @@ import (
 	"log/slog"
 
 	"github.com/akyoto/cache"
-	"github.com/lcrownover/prometheus-slurm-exporter/internal/api"
-	"github.com/lcrownover/prometheus-slurm-exporter/internal/types"
+	"github.com/Myrgued/prometheus-slurm-exporter/internal/api"
+	"github.com/Myrgued/prometheus-slurm-exporter/internal/types"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

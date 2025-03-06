@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/lcrownover/prometheus-slurm-exporter/internal/types"
+	"github.com/Myrgued/prometheus-slurm-exporter/internal/types"
 )
 
 // CleanseBaseURL removes any unneccessary elements from the provided url,

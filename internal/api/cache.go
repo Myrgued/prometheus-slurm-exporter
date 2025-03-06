@@ -8,7 +8,7 @@ import (
 	"sync"
 
 	"github.com/akyoto/cache"
-	"github.com/lcrownover/prometheus-slurm-exporter/internal/types"
+	"github.com/Myrgued/prometheus-slurm-exporter/internal/types"
 )
 
 // PopulateCache is used to populate the cache with data from the slurm api

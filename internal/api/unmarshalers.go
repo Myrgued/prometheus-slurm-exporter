@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 
-	"github.com/lcrownover/prometheus-slurm-exporter/internal/util"
+	"github.com/Myrgued/prometheus-slurm-exporter/internal/util"
 )
 
 func ProcessDiagResponse(b []byte) (*DiagData, error) {

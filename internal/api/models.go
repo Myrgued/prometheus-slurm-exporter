@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/lcrownover/prometheus-slurm-exporter/internal/types"
+	"github.com/Myrgued/prometheus-slurm-exporter/internal/types"
 )
 
 // Instead of using the Openapi-generated data in our slurm package, we

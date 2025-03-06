@@ -26,7 +26,7 @@ builds:
     main: ./cmd/prometheus-slurm-exporter/main.go
     binary: prometheus-slurm-exporter_slurm-22.05_{{ .Os }}_{{ .Arch }}
     flags:
-      - -tags=2311
+      - -tags=2205
     env:
       - CGO_ENABLED=0
     goos:

@@ -3,7 +3,7 @@
 package api
 
 import (
-	"github.com/lcrownover/prometheus-slurm-exporter/internal/types"
+	"github.com/Myrgued/prometheus-slurm-exporter/internal/types"
 )
 
 var versionedEndpoints = []endpoint{
