@@ -61,12 +61,3 @@ type PartitionsResp struct {
 		} `json:"nodes"`
 	} `json:"partitions"`
 }
-
-type SharesResp struct {
-	Shares struct {
-		Shares []struct {
-			Name           *string  `json:"name"`
-			EffectiveUsage *float64 `json:"effective_usage"`
-		} `json:"shares"`
-	} `json:"shares"`
-}
